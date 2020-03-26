@@ -1,0 +1,6 @@
+<div class="container">
+  <%= (JSON.parse(detail)).imdbID %>
+
+  <a href="/watchlist/<%= (JSON.parse(detail)).imdbID %> ">Watch LIST</a>
+  <a href="/watched/<%= (JSON.parse(detail)).imdbID %> ">Watched </a>
+</div>

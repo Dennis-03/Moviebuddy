@@ -1,0 +1,19 @@
+<form action="/search" method="POST">
+  <input type="text" placeholder="Search" name="search" />
+  <button class="btn btn-primary" type="submit">
+    Search
+  </button>
+</form>
+
+<div class="container" id="view">
+  <% (JSON.parse(data)).Search.forEach(movie => { %>
+  <!-- <form action="/add" method="POST"> -->
+  <input type="text" name="id" value="<%= movie.imdbID %> " />
+  <div><%= movie.Title %></div>
+  <img src="<%= movie.Poster%>" />
+  <a href="/detail/<%= movie.imdbID  %>" class="btn">detail</a>
+  <!-- <button type="submit">ADD</button> -->
+  <!-- </form> -->
+
+  <% }); %>
+</div>
