@@ -1,0 +1,27 @@
+<h2>
+  <%= user.name %>
+</h2>
+<h3>Watch list</h3>
+<% for(var i=0; i< user.watchList.length ;i++){%>
+<div class="card">
+  <img
+    src="https://image.tmdb.org/t/p/w500/<%=  user.watchListPoster[i] %>"
+    alt=""
+    width="150px"
+  />
+  <%= user.watchList[i] %> <%= user.watchListName[i] %>
+</div>
+<%} %>
+
+<h3>Watched list</h3>
+<% for(var i=0; i< user.watchedList.length ;i++){%>
+<div class="card">
+  <img
+    src="https://image.tmdb.org/t/p/w500/<%=
+  user.watchedListPoster[i] %>"
+    alt=""
+    width="150px"
+  />
+  <%= user.watchedList[i] %> <%= user.watchedListName[i] %>
+</div>
+<%} %>

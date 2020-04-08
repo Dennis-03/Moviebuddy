@@ -1,6 +1,15 @@
 <div class="container">
-  <%= (JSON.parse(detail)).imdbID %>
-
-  <a href="/watchlist/<%= (JSON.parse(detail)).imdbID %> ">Watch LIST</a>
-  <a href="/watched/<%= (JSON.parse(detail)).imdbID %> ">Watched </a>
+  <%= (JSON.parse(detail)).id %>
+  <h1>  <%= (JSON.parse(detail)).original_title %>
+  </h1>
+  <img
+  src="https://image.tmdb.org/t/p/w500<%= (JSON.parse(detail)).poster_path %> "
+  width="150px"
+/>
+  <a
+    href="/watchlist/<%= (JSON.parse(detail)).id %>/<%= (JSON.parse(detail)).original_title %>/<%= (JSON.parse(detail)).poster_path.split("/")[1] %>"
+  >
+    Watch LIST
+  </a>
+  <a href="/watchedlist/<%= (JSON.parse(detail)).id %>/<%= (JSON.parse(detail)).original_title %>/<%= (JSON.parse(detail)).poster_path.split("/")[1] %>"> Watched </a>
 </div>
