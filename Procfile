@@ -1,1 +1,1 @@
-web: node derver.js
+web: node server.js
