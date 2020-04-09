@@ -138,7 +138,7 @@
 // module.exports = router;
 const express = require("express");
 const router = express.Router();
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const passport = require("passport");
 const axios = require("axios");
 
