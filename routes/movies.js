@@ -10,7 +10,7 @@ router.get("/", async (req, res) => {
       "https://api.themoviedb.org/3/movie/upcoming?api_key=181ef0bca7e7dc51ef6013ce8ad75505&language=en-US&page=1"
     );
     // console.log(data.data);
-    res.render("index", {
+    res.render("/index", {
       data: JSON.stringify(data.data),
       user: req.user,
     });
