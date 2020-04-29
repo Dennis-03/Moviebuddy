@@ -1,10 +1,12 @@
+<%- include('partials/messages') %>
+
 <form action="/search" method="POST">
   <select id="cars" name="type">
     <option value="multi">All</option>
     <option value="movie">movie</option>
     <option value="tv">tv show</option>
     <option value="person">cast</option>
-    <option value="keywords">Keyword</option>
+    <option value="keyword">Keyword</option>
     <option value="collection">collections</option>
     <option value="company">companies</option>
   </select>
@@ -32,9 +34,11 @@
   </div>
 
   <div>
-    <%= movie.original_title %><%= movie.name %>
+    <%= movie.title %><%= movie.name %>
   </div>
-  <a href="/detail/<%= movie.id  %>" class="btn">detail</a>
+  <a href="/detail/movie/<%= movie.id %>" class="btn">
+    detail
+  </a>
 
   <% }); %>
 </div>

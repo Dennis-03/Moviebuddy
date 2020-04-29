@@ -1,0 +1,266 @@
+* {
+  color: white;
+}
+body {
+  background-color: rgb(5, 5, 5);
+  position: relative;
+  height: 100%;
+}
+span,
+p {
+  font-size: 20px;
+  /* padding: 2px 0; */
+}
+main {
+  margin-top: 25px;
+  margin-left: 6%;
+  margin-right: 6%;
+}
+
+h2 {
+  border-left: 8px solid blue;
+  padding-left: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.poster {
+  border-radius: 10px;
+  border: 5px solid rgb(255, 255, 255);
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.bkdrop {
+  position: fixed;
+  z-index: -1;
+  opacity: 0.05;
+  background-size: cover;
+  min-width: 100%;
+  height: 100vh;
+  background-position: center;
+}
+
+.top {
+  margin: 40px 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  /* align-content: space-between; */
+  justify-content: center;
+}
+.top > div {
+  margin-right: 5%;
+}
+
+.year {
+  font-size: 35px;
+  font-weight: 100;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.certification {
+  border: 2px solid rgba(255, 255, 255, 0.75);
+  padding: 0 0 0 3px;
+  border-radius: 5px;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 15px;
+  margin-right: 10px;
+}
+
+.meta {
+  padding: 3px 10px;
+  border-radius: 3px;
+}
+
+.prod {
+  background-color: white;
+  padding: 2px;
+  border-radius: 2px;
+}
+.content {
+  width: 450px;
+  align-self: center;
+  flex-grow: 3;
+}
+
+.content div {
+  margin-bottom: 12px;
+}
+.content span {
+  margin-bottom: 20px !important;
+  margin-right: 10px;
+}
+
+.stats {
+  margin: 50px 0;
+  display: flex;
+  /* flex-direction: row; */
+  /* justify-content: space-between; */
+}
+
+.stats span {
+  font-size: 20px;
+  /* margin-right: 25px; */
+  margin-left: auto;
+}
+.rating span {
+  display: block;
+  width: 120px;
+}
+.others span {
+  display: block;
+  width: 225px;
+}
+
+.cast {
+  margin: 0 5%;
+}
+
+.swiper-container {
+  width: 100%;
+  height: 100%;
+}
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  color: #000;
+  /* Center slide text vertically */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  /* -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center; */
+}
+
+.detail {
+  background-color: rgb(77, 77, 77);
+  height: 225px !important;
+  width: 150px !important;
+  margin: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+}
+
+.det {
+  height: 0px;
+  width: 150px;
+  overflow: hidden;
+  position: absolute;
+  text-align: center;
+  vertical-align: middle;
+  color: #000;
+  background-color: rgba(255, 255, 255, 0.5);
+  transition: padding-top 1s, height 1s;
+}
+
+.det p {
+  color: #000;
+}
+.detail:hover .det {
+  padding-top: 30px;
+  box-shadow: 5px 5px 5px 5px rgba(255, 255, 255, 0.5);
+  height: 225px;
+  display: block;
+}
+
+.subtext {
+  /* left: 0; */
+  margin-top: 8px;
+  font-size: 20px;
+  float: right;
+}
+
+.swiper-container {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  overflow: hidden;
+  list-style: none;
+  padding: 0;
+  z-index: 1;
+}
+
+.swiper-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  display: flex;
+  transition-property: transform;
+  box-sizing: content-box;
+}
+.swiper-slide {
+  flex-shrink: 0;
+  position: relative;
+  transition-property: transform;
+}
+
+.swiper-container-css-mode > .swiper-wrapper {
+  overflow: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.swiper-container-css-mode > .swiper-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.done {
+  margin: 0 !important;
+}
+
+.similar {
+  margin: 35px 5%;
+}
+
+.movie {
+  width: 400px !important;
+  height: 265px !important;
+  border-radius: 5px;
+  overflow: hidden;
+  background-color: #000;
+  position: relative;
+  z-index: -9;
+  margin-right: 20px;
+}
+
+.movies p {
+  padding: 5px 0;
+  color: #fff;
+  z-index: 10;
+}
+.desc {
+  top: 0;
+  width: 400px;
+  height: 0;
+  margin-bottom: 55px;
+  position: absolute;
+  z-index: 99;
+  background-color: rgba(255, 255, 255, 0.5);
+  /* display: none; */
+  color: #000;
+  transition: height 1s, padding-top 1s;
+  overflow: hidden;
+}
+.swiper-wrapper a:hover .desc {
+  display: block;
+  height: 225px;
+  /* box-shadow: 5px 5px 5px 5px rgba(255, 255, 255, 0.5); */
+  padding-top: 20px;
+  overflow: hidden;
+  /* z-index: 9; */
+  text-decoration: none;
+}
+
+.recommend {
+  margin: 35px 5%;
+}

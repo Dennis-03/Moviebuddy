@@ -39,5 +39,17 @@ const userSchema = new mongoose.Schema({
     type: Array,
     default: [],
   },
+  favList: {
+    type: Array,
+    default: [],
+  },
+  favListName: {
+    type: Array,
+    default: [],
+  },
+  favListPoster: {
+    type: Array,
+    default: [],
+  },
 });
 module.exports = mongoose.model("user", userSchema);

@@ -1,0 +1,161 @@
+<%- include('../partials/messages') %> <% detail=(JSON.parse(detail)) %> <%
+omdb=(JSON.parse(omdb)) %> <% cast=(JSON.parse(cast)) %> <%
+recommended=(JSON.parse(recommended)) %><% similar=(JSON.parse(similar)) %> <%
+videos=(JSON.parse(videos)) %>
+<img
+  src="https://image.tmdb.org/t/p/w500<%= detail.backdrop_path %> "
+  class="bkdrop img-responsive"
+  alt=""
+/>
+<main>
+  <h1>
+    <%= detail.title %>
+    <span class="year">(<%= omdb.Year %>)</span>
+  </h1>
+  <div class="top">
+    <div class="poster animated fadeInLeft delay-1s">
+      <img
+        src="https://image.tmdb.org/t/p/w500<%= detail.poster_path %> "
+        class="img-responsive"
+        alt="iruda"
+        height="450px"
+      />
+    </div>
+    <div class="content animated fadeInRight delay-1s">
+      <div>
+        <span class="certification"> <%= omdb.Rated %> </span>
+        <span> <%= omdb.Genre %> </span>
+        <span> <i class="fa fa-clock-o"></i> <%= detail.runtime %> m</span>
+      </div>
+      <div>
+        <span>Status : <strong class="text-success">Released</strong></span>
+      </div>
+      <div>
+        <span>
+          IMDB <%= omdb.imdbRating %>
+          <i class="fa fa-star" style="color: gold;"></i>
+        </span>
+        <span
+          >Metascore
+          <span class="bg-success meta"> <%= omdb.Metascore %> </span>
+        </span>
+      </div>
+      <div>
+        <a
+          href="https://www.youtube.com/watch?v=<%=  %> "
+          class="btn btn-primary"
+          target="_blank"
+        >
+          Watch trailer <i class="fa fa-youtube-play"></i>
+        </a>
+        <a class="btn btn-primary">
+          AddtoWatchlist <i class="fa fa-plus"></i>
+        </a>
+      </div>
+      <% if(detail.tagline!=""){ %>
+      <div>
+        <span><i>&quot;<%= detail.tagline %>&quot;</i></span>
+      </div>
+      <% } %>
+      <p><strong>Overview : </strong><%= detail.overview %></p>
+      <% if (detail.production_companies!="") {%>
+      <div>
+        <h4>Production:</h4>
+        <% detail.production_companies.forEach(company =>{ %> <% if
+        (company.logo_path!=null){ %>
+        <img
+          src="https://image.tmdb.org/t/p/w500<%= company.logo_path %> "
+          class="prod"
+          alt=""
+          height="40px"
+        />
+        <% } %> <% } )%>
+      </div>
+      <% } %>
+      <div>
+        <% if (detail.budget != 0){ %>
+        <span>Budget:-<%= detail.budget %></span>
+        <span>Revenue:-<%= detail.revenue %> </span>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</main>
+<section class="cast animated fadeInUp delay-2s">
+  <h2>Cast <a href="#fullcast" class="subtext">Entire Cast & Crew</a></h2>
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+      <% cast.cast.forEach(cast => { %>
+      <a href="/detail/person/<%= cast.id %>">
+        <div class="swiper-slide detail">
+          <div class="det">
+            <p>&quot;<%= cast.name %>&quot;</p>
+            <p><%= cast.character %></p>
+          </div>
+          <img
+            src="https://image.tmdb.org/t/p/w500<%= cast.profile_path %>"
+            alt=""
+            width="150px"
+          />
+        </div>
+      </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<% if (similar.total_results!=0){ %>
+<section class="similar animated fadeInUp delay-3s">
+  <h2>Similar Movies</h2>
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+      <% similar.results.forEach( movie =>{ %> <% if ( movie.backdrop_path!=null
+      ) {%>
+      <a href="<%= movie.id %> ">
+        <div class="swiper-slide movie">
+          <div class="movies">
+            <img
+              src="https://image.tmdb.org/t/p/w500<%= movie.backdrop_path %>"
+              alt=""
+              width="400px"
+            />
+            <p>
+              <%= movie.title %>
+            </p>
+            <div class="desc">
+              <%= movie.overview %>
+            </div>
+          </div>
+        </div>
+      </a>
+      <% } %> <% }) %>
+    </div>
+  </div>
+</section>
+<% } %> <% if (recommended.total_results!=0){ %>
+<section class="recommend animated fadeInUp delay-4s">
+  <h2>Recommended Movies</h2>
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+      <% recommended.results.forEach( movie =>{ %>
+      <a href="<%= movie.id %> ">
+        <div class="swiper-slide movie">
+          <div class="movies">
+            <img
+              src="https://image.tmdb.org/t/p/w500<%= movie.backdrop_path %>"
+              alt=""
+              width="400px"
+            />
+            <p>
+              <%= movie.title %>
+            </p>
+            <div class="desc">
+              <%= movie.overview %>
+            </div>
+          </div>
+        </div>
+      </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<% } %>

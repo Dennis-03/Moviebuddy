@@ -1,3 +1,5 @@
+<%- include('partials/messages') %>
+
 <form action="/search" method="POST">
   <select id="cars" name="type">
     <option value="multi">All</option>
@@ -17,24 +19,39 @@
 <% if(user === undefined){ %>
 <a href="user/signup" class="btn">Signup</a>
 <a href="user/login" class="btn">Login</a>
-<% }else{ %> <%= user.name %>
+<% }else{ %>
+<a href="user/profile" class="btn"> <%= user.name %></a>
 <a href="user/logout" class="btn">logout</a>
 <% } %>
-
+<div>
+  <% (JSON.parse(keyword)).results.forEach(val => { %> <%= val.name %> <% }); %>
+</div>
 <div class="container" id="view">
   <% (JSON.parse(data)).results.forEach(movie => { %>
   <div class="card">
+    <% if((movie.profile_path != null) ){%>
     <img
-      src="https://image.tmdb.org/t/p/w500<%= movie.poster_path %><%= movie.profile_path %> "
-      alt=""
+      src="https://image.tmdb.org/t/p/w500<%= movie.profile_path %>"
       width="150px"
     />
+    <% }else if (movie.poster_path != null){ %>
+    <img
+      src="https://image.tmdb.org/t/p/w500<%= movie.poster_path %>"
+      width="150px"
+    />
+    <% }else { %>
+    <img
+      src="https://image.tmdb.org/t/p/w500/8CuuNIKMzMUL1NKOPv9AqEwM7og.jpg"
+      width="150px"
+    />
+    <% } %>
   </div>
-
   <div>
-    <%= movie.original_title %><%= movie.name %>
+    <%= movie.title %><%= movie.name %>
   </div>
-  <a href="/detail/<%= movie.id  %>" class="btn">detail</a>
+  <a href="/detail/<%= movie.media_type %>/<%= movie.id %>" class="btn">
+    detail
+  </a>
 
   <% }); %>
 </div>
