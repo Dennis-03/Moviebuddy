@@ -42,7 +42,7 @@ videos=(JSON.parse(videos)) %>
       </div>
       <div>
         <a
-          href="https://www.youtube.com/watch?v=<%= videos.results.key %> "
+          href="https://www.youtube.com/watch?v=<%= videos.results.forEach((video)=>{video.key}) %> "
           class="btn btn-primary"
           target="_blank"
         >
@@ -97,15 +97,15 @@ videos=(JSON.parse(videos)) %>
       <% cast.cast.forEach(cast => { %>
       <a href="/detail/person/<%= cast.id %>">
         <div class="swiper-slide detail">
-          <div class="det">
+          <div class="movies">
+            <img
+              src="https://image.tmdb.org/t/p/w500<%= cast.profile_path %>"
+              alt=""
+              width="150px"
+            />
             <p>&quot;<%= cast.name %>&quot;</p>
-            <p><%= cast.character %></p>
+            <div class="name"><%= cast.character %></div>
           </div>
-          <img
-            src="https://image.tmdb.org/t/p/w500<%= cast.profile_path %>"
-            alt=""
-            width="150px"
-          />
         </div>
       </a>
       <% }) %>

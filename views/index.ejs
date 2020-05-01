@@ -22,23 +22,255 @@
 <% }else{ %>
 <a href="user/profile" class="btn"> <%= user.name %></a>
 <a href="user/logout" class="btn">logout</a>
-<% } %>
+<% } %> <% upcoming=(JSON.parse(upcoming)) %> <% popular=(JSON.parse(popular))
+%> <% now_playing=(JSON.parse(now_playing)) %> <%
+populartv=(JSON.parse(populartv)) %> <% onair=(JSON.parse(onair)) %> <%
+today=(JSON.parse(today)) %> <% person=(JSON.parse(person)) %>
 
-<div class="container" id="view">
-  <% (JSON.parse(data)).results.forEach(movie => { %>
-  <div class="card">
-    <img
-      src="https://image.tmdb.org/t/p/w500<%= movie.poster_path %> "
-      width="150px"
-    />
+<main class="container">
+  <section class="upcoming">
+    <div id="demo" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner text-center" id="carousel">
+        <div class="carousel-item row active">
+          <a href="detail/movie/<%= popular.results[0].id %>">
+            <img
+              src="https://image.tmdb.org/t/p/w500<%= popular.results[0].poster_path %>"
+              alt=""
+              class="extra"
+            />
+            <img
+              src="https://image.tmdb.org/t/p/w500<%= popular.results[0].backdrop_path %>"
+              alt="Los Angeles"
+            />
+            <div class="carousel-caption greyed">
+              <h2><%= popular.results[0].title %></h2>
+              <p class="twolines"><%= popular.results[0].overview %></p>
+            </div>
+          </a>
+        </div>
+        <% for(var i=1; i<=10; i++){ %> <% if( popular.results[i].backdrop_path
+        !=null) {%>
+        <div class="carousel-item row">
+          <a href="detail/movie/<%= popular.results[i].id %>">
+            <img
+              src="https://image.tmdb.org/t/p/w500<%= popular.results[i].poster_path %>"
+              alt=""
+              class="extra"
+            />
+            <img
+              src="https://image.tmdb.org/t/p/w500<%= popular.results[i].backdrop_path %>"
+              alt="Los Angeles"
+            />
+            <div class="carousel-caption greyed">
+              <h2><%= popular.results[i].title %></h2>
+              <p class="twolines"><%= popular.results[i].overview %></p>
+            </div>
+          </a>
+        </div>
+        <% } %> <% } %>
+      </div>
+      <a class="carousel-control-prev" href="#demo" data-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </a>
+      <a class="carousel-control-next" href="#demo" data-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </a>
+    </div>
+  </section>
+</main>
+
+<h1 class="popular">What to Watch</h1>
+<section class="popular">
+  <h3>Popular</h3>
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+      <% upcoming.results.forEach((movie)=>{ if(movie.poster_path!=null){%>
+      <div class="swiper-slide watch">
+        <a href="/detail/movie/<%= movie.id %>">
+          <div>
+            <img
+              src="https://image.tmdb.org/t/p/w500<%= movie.poster_path %>"
+              alt=""
+              width="175px"
+              height="260px"
+            />
+            <p class="score">
+              <i class="fa fa-star" style="color: gold;"></i> <%=
+              movie.vote_average %>
+            </p>
+            <p><%= movie.title %></p>
+            <a href="#dsd">
+              <button class="btn"><i class="fa fa-plus"></i> Watchlist</button>
+            </a>
+          </div>
+        </a>
+      </div>
+      <% }}) %>
+    </div>
   </div>
-
-  <div>
-    <%= movie.title %><%= movie.name %>
+</section>
+<section class="popular">
+  <h3>Now Playing</h3>
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+      <% now_playing.results.forEach((movie)=>{ if(movie.poster_path!=null){ %>
+      <div class="swiper-slide watch">
+        <a href="/detail/movie/<%= movie.id %> ">
+          <div>
+            <img
+              src="https://image.tmdb.org/t/p/w500<%= movie.poster_path %>"
+              alt=""
+              width="175px"
+              height="260px"
+            />
+            <p class="score">
+              <i class="fa fa-star" style="color: gold;"></i> <%=
+              movie.vote_average %>
+            </p>
+            <p><%= movie.title %></p>
+            <a href="#dsd">
+              <button class="btn"><i class="fa fa-plus"></i> Watchlist</button>
+            </a>
+          </div>
+        </a>
+      </div>
+      <% } }) %>
+    </div>
   </div>
-  <a href="/detail/movie/<%= movie.id %>" class="btn">
-    detail
-  </a>
+</section>
+<h1 class="popular">TV shows to watch</h1>
+<main class="container">
+  <section class="upcoming">
+    <div id="demo1" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner text-center" id="carousel">
+        <div class="carousel-item row active">
+          <a href="/detail/tv/<%= populartv.results[0].id %>">
+            <img
+              src="https://image.tmdb.org/t/p/w500<%= populartv.results[0].poster_path %>"
+              alt=""
+              class="extra"
+            />
+            <img
+              src="https://image.tmdb.org/t/p/w500<%= populartv.results[0].backdrop_path %>"
+              alt="Los Angeles"
+            />
+            <div class="carousel-caption greyed">
+              <h2><%= populartv.results[0].name %></h2>
+              <p class="twolines"><%= populartv.results[0].overview %></p>
+            </div>
+          </a>
+        </div>
+        <% for(var i=1; i<=10; i++){ %> <% if(
+        populartv.results[i].backdrop_path !=null) {%>
+        <div class="carousel-item row">
+          <a href="/detail/tv/<%= populartv.results[i].id %>">
+            <img
+              src="https://image.tmdb.org/t/p/w500<%= populartv.results[i].poster_path %>"
+              alt=""
+              class="extra"
+            />
+            <img
+              src="https://image.tmdb.org/t/p/w500<%= populartv.results[i].backdrop_path %>"
+              alt="Los Angeles"
+            />
+            <div class="carousel-caption greyed">
+              <h2><%= populartv.results[i].name %></h2>
+              <p class="twolines"><%= populartv.results[i].overview %></p>
+            </div>
+          </a>
+        </div>
+        <% } %> <% } %>
+      </div>
+      <a class="carousel-control-prev" href="#demo1" data-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </a>
+      <a class="carousel-control-next" href="#demo1" data-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </a>
+    </div>
+  </section>
+</main>
 
-  <% }); %>
-</div>
+//
+<h1 class="popular">TV shows to Watch</h1>
+<section class="popular">
+  <h3>On The Air</h3>
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+      <% onair.results.forEach((movie)=>{if(movie.poster_path!=null){ %>
+      <div class="swiper-slide watch">
+        <a href="/detail/movie/<%= movie.id %>">
+          <div>
+            <img
+              src="https://image.tmdb.org/t/p/w500<%= movie.poster_path %>"
+              alt=""
+              width="175px"
+              height="260px"
+            />
+            <p class="score">
+              <i class="fa fa-star" style="color: gold;"></i> <%=
+              movie.vote_average %>
+            </p>
+            <p><%= movie.name %></p>
+            <a href="#dsd">
+              <button class="btn"><i class="fa fa-plus"></i> Watchlist</button>
+            </a>
+          </div>
+        </a>
+      </div>
+      <%} }) %>
+    </div>
+  </div>
+</section>
+<section class="popular">
+  <h3>Airing today</h3>
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+      <% today.results.forEach((movie)=>{ if(movie.poster_path!=null){%>
+      <div class="swiper-slide watch">
+        <a href="/detail/movie/<%= movie.id %> ">
+          <div>
+            <img
+              src="https://image.tmdb.org/t/p/w500<%= movie.poster_path %>"
+              alt=""
+              width="175px"
+              height="260px"
+            />
+            <p class="score">
+              <i class="fa fa-star" style="color: gold;"></i> <%=
+              movie.vote_average %>
+            </p>
+            <p><%= movie.name %></p>
+            <a href="#dsd">
+              <button class="btn"><i class="fa fa-plus"></i> Watchlist</button>
+            </a>
+          </div>
+        </a>
+      </div>
+      <%} }) %>
+    </div>
+  </div>
+</section>
+<section class="popular">
+  <h3>Popular cast</h3>
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+      <% person.results.forEach((person)=>{if(person.profile_path!=null){ %>
+      <div class="swiper-slide person">
+        <a href="#cas">
+          <div>
+            <img
+              src="https://image.tmdb.org/t/p/w500<%= person.profile_path %>"
+              alt=""
+              width="180px"
+            />
+          </div>
+          <p>
+            <%= person.name %>
+          </p>
+        </a>
+      </div>
+      <% }}) %>
+    </div>
+  </div>
+</section>

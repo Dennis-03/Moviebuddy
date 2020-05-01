@@ -6,12 +6,35 @@ const { ensureAuthenticated } = require("../config/auth");
 
 router.get("/", async (req, res) => {
   try {
-    const data = await axios.get(
+    const now_playing = await axios.get(
+      "https://api.themoviedb.org/3/movie/now_playing?api_key=181ef0bca7e7dc51ef6013ce8ad75505&language=en-US&page=1"
+    );
+    const popular = await axios.get(
+      "https://api.themoviedb.org/3/movie/popular?api_key=181ef0bca7e7dc51ef6013ce8ad75505&language=en-US&page=1"
+    );
+    const upcoming = await axios.get(
       "https://api.themoviedb.org/3/movie/upcoming?api_key=181ef0bca7e7dc51ef6013ce8ad75505&language=en-US&page=1"
     );
-    // console.log(data.data);
+    const today = await axios.get(
+      "https://api.themoviedb.org/3/tv/airing_today?api_key=181ef0bca7e7dc51ef6013ce8ad75505&language=en-US&page=1"
+    );
+    const onair = await axios.get(
+      "https://api.themoviedb.org/3/tv/on_the_air?api_key=181ef0bca7e7dc51ef6013ce8ad75505&language=en-US&page=1"
+    );
+    const populartv = await axios.get(
+      "https://api.themoviedb.org/3/tv/popular?api_key=181ef0bca7e7dc51ef6013ce8ad75505&language=en-US&page=1"
+    );
+    const person = await axios.get(
+      "https://api.themoviedb.org/3/person/popular?api_key=181ef0bca7e7dc51ef6013ce8ad75505&language=en-US&page=1"
+    );
     res.render("index", {
-      data: JSON.stringify(data.data),
+      now_playing: JSON.stringify(now_playing.data),
+      popular: JSON.stringify(popular.data),
+      upcoming: JSON.stringify(upcoming.data),
+      today: JSON.stringify(today.data),
+      person: JSON.stringify(person.data),
+      onair: JSON.stringify(onair.data),
+      populartv: JSON.stringify(populartv.data),
       user: req.user,
     });
   } catch (e) {

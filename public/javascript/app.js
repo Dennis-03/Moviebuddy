@@ -1,29 +1,34 @@
-const btn = document.getElementById("run");
-btn.onclick = async function main() {
-  const search = document.getElementById("search").value;
-  console.log(search);
-  const view = document.getElementById("view");
-  console.log(view);
-  let request = new XMLHttpRequest();
-  request.open(
-    "GET",
-    "http://www.omdbapi.com/?apikey=6df39d0d&s=" + search,
-    true
-  );
-  // view.innerHTML(`<div>`);
-  request.onload = function() {
-    let data = JSON.parse(request.response).Search;
-    console.log(data);
-    data.forEach(movie => {
-      view.innerHTML +=
-        '    <form action="/search" method="POST"> <input type="text" name=search value="' +
-        movie.Title +
-        '"/><img src="' +
-        movie.Poster +
-        '"><button type=submit>Watchlist</button></form>';
-    });
-  };
-  request.send();
+// const btn = document.getElementById("run");
+// btn.onclick = async function main() {
+//   const search = document.getElementById("search").value;
+//   console.log(search);
+//   const view = document.getElementById("view");
+//   console.log(view);
+//   let request = new XMLHttpRequest();
+//   request.open(
+//     "GET",
+//     "http://www.omdbapi.com/?apikey=6df39d0d&s=" + search,
+//     true
+//   );
+//   // view.innerHTML(`<div>`);
+//   request.onload = function() {
+//     let data = JSON.parse(request.response).Search;
+//     console.log(data);
+//     data.forEach(movie => {
+//       view.innerHTML +=
+//         '    <form action="/search" method="POST"> <input type="text" name=search value="' +
+//         movie.Title +
+//         '"/><img src="' +
+//         movie.Poster +
+//         '"><button type=submit>Watchlist</button></form>';
+//     });
+//   };
+//   request.send();
+
+
+$(document).ready(function () {
+  $('#carousel').find('.carousel-item').first().addClass('active');
+});
 
   // await fetch("/search", {
   //   method: "POST",
