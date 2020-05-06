@@ -1,10 +1,26 @@
 <%- include('../partials/messages') %>
-
-<form action="signup" method="POST">
-  <input type="text" name="name" />
-  <input type="text" name="email" />
-  <input type="text" name="password" />
-  <input type="text" name="password2" />
-
-  <button type="submit">Submit</button>
-</form>
+<div>
+  <form action="signup" method="POST" class="register">
+    <div class="logo-container">
+      <i class="fa fa-lock"></i>
+    </div>
+    <div>
+      <i class="fa fa-user"></i>
+      <input type="text" placeholder="Name" name="name" />
+    </div>
+    <div>
+      <i class="fa fa-envelope"></i>
+      <input type="text" placeholder="Email" name="email" />
+    </div>
+    <div>
+      <i class="fa fa-key"></i>
+      <input type="password" placeholder="Password" name="password" />
+    </div>
+    <div>
+      <i class="fa fa-key"></i>
+      <input type="password" placeholder=" Re-Type Password" name="password2" />
+    </div>
+    <button type="submit" class="btn">Register</button>
+    <p class="exist">Already having an account ? <a href="login">Signin</a></p>
+  </form>
+</div>

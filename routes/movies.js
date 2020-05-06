@@ -54,17 +54,13 @@ router.post("/search/", async (req, res) => {
     const data = await axios.get(
       `https://api.themoviedb.org/3/search/${req.body.type}?api_key=181ef0bca7e7dc51ef6013ce8ad75505&language=en-US&query=${req.body.search}`
     );
-    const keyword = await axios.get(
-      `https://api.themoviedb.org/3/search/keyword?api_key=181ef0bca7e7dc51ef6013ce8ad75505&query=${req.body.search}`
-    );
     console.log(req.body.type);
-    console.log(keyword.data.results);
-
     // data = ;
     res.render("search", {
       data: JSON.stringify(data.data),
+      type: req.body.type,
+      query: req.body.search,
       user: req.user,
-      keyword: JSON.stringify(keyword.data),
     });
   } catch (error) {
     console.error(error);
@@ -114,10 +110,17 @@ router.get("/detail/:type/:id", async (req, res) => {
         videos: JSON.stringify(videos.data),
         recommended: JSON.stringify(recom.data),
         similar: JSON.stringify(similar.data),
+        user: req.user,
       });
     } else {
+      const credits = await axios.get(
+        `https://api.themoviedb.org/3/person/${id}/combined_credits?api_key=181ef0bca7e7dc51ef6013ce8ad75505`
+      );
+      console.log(credits.data);
       res.render(`detail/detail${type}`, {
+        credits: JSON.stringify(credits.data),
         detail: JSON.stringify(detail.data),
+        user: req.user,
       });
     }
   } catch (e) {

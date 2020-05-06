@@ -1,8 +1,7 @@
-<%- include('../partials/messages') %> <% detail=(JSON.parse(detail)) %> <%
-omdb=(JSON.parse(omdb)) %> <% cast=(JSON.parse(cast)) %> <%
-recommended=(JSON.parse(recommended)) %><% similar=(JSON.parse(similar)) %> <%
-videos=(JSON.parse(videos)) %>
-
+<%- include('../partials/messages') %> <%- include('../partials/navbar') %><%
+detail=(JSON.parse(detail)) %> <% omdb=(JSON.parse(omdb)) %> <%
+cast=(JSON.parse(cast)) %> <% recommended=(JSON.parse(recommended)) %><%
+similar=(JSON.parse(similar)) %> <% videos=(JSON.parse(videos)) %>
 <img
   src="https://image.tmdb.org/t/p/w500<%= detail.backdrop_path %> "
   class="bkdrop img-responsive"
@@ -15,12 +14,16 @@ videos=(JSON.parse(videos)) %>
   </h1>
   <div class="top">
     <div class="poster animated fadeInLeft delay-1s">
+      <% if(detail.poster_path != null){ %>
       <img
         src="https://image.tmdb.org/t/p/w500<%= detail.poster_path %> "
         class="img-responsive"
         alt="iruda"
         height="450px"
       />
+      <% } else{%>
+      <img src="/img/poster.jpg" class="img-responsive" height="450px" />
+      <% } %>
     </div>
     <div class="content animated fadeInRight delay-1s">
       <div>
@@ -90,7 +93,7 @@ videos=(JSON.parse(videos)) %>
     </div>
   </div>
 </main>
-<section class="cast animated fadeInUp delay-2s">
+<section class="popular cast animated fadeInUp delay-2s">
   <h2>Cast <a href="#fullcast" class="subtext">Entire Cast & Crew</a></h2>
   <div class="swiper-container">
     <div class="swiper-wrapper">
@@ -167,4 +170,4 @@ videos=(JSON.parse(videos)) %>
     </div>
   </div>
 </section>
-<% } %>
+<% } %> <%- include('../partials/footer') %>
