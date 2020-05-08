@@ -99,6 +99,8 @@ router.get("/logout", (req, res) => {
 // list movies
 
 router.get("/profile", async (req, res) => {
+  // console.log(data);
+  // res.send(data2);
   res.render("user/profile", { user: req.user });
 });
 
