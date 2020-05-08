@@ -27,6 +27,21 @@ const userSchema = new mongoose.Schema({
     type: Array,
     default: [],
   },
+<<<<<<< HEAD
+=======
+  watchedList: {
+    type: Array,
+    default: [],
+  },
+  watchedListName: {
+    type: Array,
+    default: [],
+  },
+  watchedListPoster: {
+    type: Array,
+    default: [],
+  },
+>>>>>>> parent of 1d059cc... error
   favList: {
     type: Array,
     default: [],

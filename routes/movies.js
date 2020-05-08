@@ -2,8 +2,6 @@ const express = require("express");
 const router = express.Router();
 const axios = require("axios");
 const User = require("../models/users");
-const Movie = require("../models/users");
-
 const { ensureAuthenticated } = require("../config/auth");
 
 router.get("/", async (req, res) => {
@@ -185,7 +183,10 @@ router.get(
     res.redirect(`/detail/${id}`);
   }
 );
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 1d059cc... error
 router.get(
   "/watchedlist/:id/:name/:poster",
   ensureAuthenticated,
