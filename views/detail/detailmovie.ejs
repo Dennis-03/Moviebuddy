@@ -52,7 +52,10 @@ similar=(JSON.parse(similar)) %> <% videos=(JSON.parse(videos)) %>
         >
           Watch trailer <i class="fa fa-youtube-play"></i>
         </a>
-        <a class="btn btn-primary">
+        <a
+          class="btn btn-primary"
+          href="/watchlist/<%= detail.id  %>/<%= detail.title  %>/<%= detail.poster_path.split("/")[1]  %> "
+        >
           AddtoWatchlist <i class="fa fa-plus"></i>
         </a>
       </div>

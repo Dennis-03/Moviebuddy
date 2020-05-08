@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const axios = require("axios");
 const User = require("../models/users");
+const Movie = require("../models/users");
+
 const { ensureAuthenticated } = require("../config/auth");
 
 router.get("/", async (req, res) => {
@@ -132,59 +134,83 @@ router.get(
   ensureAuthenticated,
   async (req, res) => {
     console.log("WatchList");
-    const id = req.params.id;
-    const name = req.params.name;
-    const poster = req.params.poster;
+    const tmdbid = req.params.id;
+    const title = req.params.name;
+    const posterPath = req.params.poster;
 
-    console.log(id);
-    console.log(name);
-    console.log(poster);
+    console.log(tmdbid);
+    console.log(title);
+    console.log(posterPath);
 
-    let list = req.user.watchList;
-    let nameList = req.user.watchListName;
-    let posterList = req.user.watchListPoster;
-
-    console.log(list);
-    let flag = 0;
-    list.forEach((e) => {
-      if (e === id) {
-        flag = 1;
-      }
+    const newMovie = new Movie({
+      tmdbid,
+      title,
+      posterPath,
     });
-    if (flag === 0) {
-      req.flash("success_msg", "Added Movie to Watch List");
-      list.push(id);
-      nameList.push(name);
-      posterList.push(poster);
-      await User.findOneAndUpdate(
-        { _id: req.user._id },
-        {
-          watchList: list,
-          watchListName: nameList,
-          watchListPoster: posterList,
-        },
-        { new: true }
-      );
-    } else {
-      list = list.filter((list) => list !== id);
-      nameList = nameList.filter((list) => list !== name);
-      posterList = posterList.filter((list) => list !== poster);
-      await User.findOneAndUpdate(
-        { _id: req.user._id },
-        {
-          watchList: list,
-          watchListName: nameList,
-          watchListPoster: posterList,
-        },
-        { new: true }
-      );
-      // console.log(newList);
-      req.flash("success_msg", "Removed Movie from Watch List");
-    }
+
+    User.newMovie.save().catch((err) => console.log(err));
     // console.log(list);
     res.redirect(`/detail/${id}`);
   }
 );
+// router.get(
+//   "/watchlist/:id/:name/:poster",
+//   ensureAuthenticated,
+//   async (req, res) => {
+//     console.log("WatchList");
+//     const id = req.params.id;
+//     const name = req.params.name;
+//     const poster = req.params.poster;
+
+//     console.log(id);
+//     console.log(name);
+//     console.log(poster);
+
+//     let list = req.user.watchList;
+//     let nameList = req.user.watchListName;
+//     let posterList = req.user.watchListPoster;
+
+//     console.log(list);
+//     let flag = 0;
+//     list.forEach((e) => {
+//       if (e === id) {
+//         flag = 1;
+//       }
+//     });
+//     if (flag === 0) {
+//       req.flash("success_msg", "Added Movie to Watch List");
+//       list.push(id);
+//       nameList.push(name);
+//       posterList.push(poster);
+//       await User.findOneAndUpdate(
+//         { _id: req.user._id },
+//         {
+//           watchList: list,
+//           watchListName: nameList,
+//           watchListPoster: posterList,
+//         },
+//         { new: true }
+//       );
+//     } else {
+//       list = list.filter((list) => list !== id);
+//       nameList = nameList.filter((list) => list !== name);
+//       posterList = posterList.filter((list) => list !== poster);
+//       await User.findOneAndUpdate(
+//         { _id: req.user._id },
+//         {
+//           watchList: list,
+//           watchListName: nameList,
+//           watchListPoster: posterList,
+//         },
+//         { new: true }
+//       );
+//       // console.log(newList);
+//       req.flash("success_msg", "Removed Movie from Watch List");
+//     }
+//     // console.log(list);
+//     res.redirect(`/detail/${id}`);
+//   }
+// );
 router.get(
   "/watchedlist/:id/:name/:poster",
   ensureAuthenticated,
