@@ -52,20 +52,17 @@ similar=(JSON.parse(similar)) %> <% videos=(JSON.parse(videos)) %>
         <a href="/watchedlist/<%= detail.id  %>/<%= detail.name  %>/<%= detail.poster_path.split("/")[1]  %>/tv " class="btn adder">
           Watched <i class="fa fa-eye"></i>
         </a>
-        <% if(videos.results.length!=0){ %>
-          <a
-          href="https://www.youtube.com/watch?v=<%=videos.results[videos.results.length-1].key  %> "
-          target="_blank"
-          class="btn youtube"
-        >
-          Watch trailer <i class="fa fa-youtube-play"></i>
-        </a>
-          <% } %>  
+        <a
+        href="https://www.youtube.com/watch?v=<%=videos.results[videos.results.length-1].key  %> "
+        target="_blank"
+        class="btn youtube"
+      >
+        Watch trailer <i class="fa fa-youtube-play"></i>
+      </a>
       </div>
       <p>
         <strong>Seasons : </strong>&quot;<%= detail.number_of_seasons %>&quot;
-        <strong> No.of Episodes : </strong>&quot;<%= detail.number_of_episodes
-        %>&quot;
+        <strong> No.of Episodes : </strong>&quot;<%= detail.number_of_episodes %>&quot;
       </p>
       <p><strong>Overview : </strong><%= detail.overview %></p>
       <div class="row">
@@ -93,7 +90,7 @@ similar=(JSON.parse(similar)) %> <% videos=(JSON.parse(videos)) %>
             alt=""
             height="40px"
           />
-          <% } %> <% } )%>
+          <% } %> <% })%>
         </div>
         <% } %>
       </div>
@@ -120,6 +117,7 @@ similar=(JSON.parse(similar)) %> <% videos=(JSON.parse(videos)) %>
               alt=""
               width="150px"
             />
+            <% } %>
             <p>&quot;<%= cast.name %>&quot;</p>
             <div class="name"><%= cast.character %></div>
           </div>
