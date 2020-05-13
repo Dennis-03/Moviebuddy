@@ -1,8 +1,7 @@
-<%- include('../partials/messages') %> <% detail=(JSON.parse(detail)) %> <%
-omdb=(JSON.parse(omdb)) %> <% cast=(JSON.parse(cast)) %> <%
-recommended=(JSON.parse(recommended)) %><% similar=(JSON.parse(similar)) %> <%
-videos=(JSON.parse(videos)) %>
-
+<%- include('../partials/messages') %> <%- include('../partials/navbar') %><%
+detail=(JSON.parse(detail)) %> <% omdb=(JSON.parse(omdb)) %> <%
+cast=(JSON.parse(cast)) %> <% recommended=(JSON.parse(recommended)) %><%
+similar=(JSON.parse(similar)) %> <% videos=(JSON.parse(videos)) %>
 <img
   src="https://image.tmdb.org/t/p/w500<%= detail.backdrop_path %> "
   class="bkdrop img-responsive"
@@ -15,12 +14,18 @@ videos=(JSON.parse(videos)) %>
   </h1>
   <div class="top">
     <div class="poster animated fadeInLeft delay-1s">
+      <% if(detail.poster_path != null){ %>
       <img
         src="https://image.tmdb.org/t/p/w500<%= detail.poster_path %> "
         class="img-responsive"
         alt="iruda"
         height="450px"
       />
+      <% } else{%>
+      <img src="/img/poster.jpg" class="img-responsive" height="450px" />
+      <% } %>
+      <a href="/favlist/<%= detail.id  %>/<%= detail.name  %>/<%= detail.poster_path.split("/")[1]  %>/tv" class="favourite"><i class="fa fa-heart"></i>
+      </a>
     </div>
     <div class="content animated fadeInRight delay-1s">
       <div>
@@ -41,16 +46,21 @@ videos=(JSON.parse(videos)) %>
         </span>
       </div>
       <div>
-        <a
-          href="https://www.youtube.com/watch?v=<%= videos.results.forEach((video)=>{video.key}) %> "
-          class="btn btn-primary"
+        <a href="/watchlist/<%= detail.id  %>/<%= detail.name  %>/<%= detail.poster_path.split("/")[1]  %>/tv " class="btn adder">
+          Watchlist <i class="fa fa-plus"></i>
+        </a>
+        <a href="/watchedlist/<%= detail.id  %>/<%= detail.name  %>/<%= detail.poster_path.split("/")[1]  %>/tv " class="btn adder">
+          Watched <i class="fa fa-eye"></i>
+        </a>
+        <% if(videos.results.length!=0){ %>
+          <a
+          href="https://www.youtube.com/watch?v=<%=videos.results[videos.results.length-1].key  %> "
           target="_blank"
+          class="btn youtube"
         >
           Watch trailer <i class="fa fa-youtube-play"></i>
         </a>
-        <a class="btn btn-primary">
-          AddtoWatchlist <i class="fa fa-plus"></i>
-        </a>
+          <% } %>  
       </div>
       <p>
         <strong>Seasons : </strong>&quot;<%= detail.number_of_seasons %>&quot;
@@ -90,16 +100,23 @@ videos=(JSON.parse(videos)) %>
     </div>
   </div>
 </main>
-<section class="cast animated fadeInUp delay-2s">
-  <h2>Cast <a href="#fullcast" class="subtext">Entire Cast & Crew</a></h2>
+<section class="popular cast animated fadeInUp delay-2s">
+  <h3>Cast </h3>
   <div class="swiper-container">
     <div class="swiper-wrapper">
       <% cast.cast.forEach(cast => { %>
       <a href="/detail/person/<%= cast.id %>">
         <div class="swiper-slide detail">
           <div class="movies">
+            <% if(cast.profile_path!=null){ %>
             <img
               src="https://image.tmdb.org/t/p/w500<%= cast.profile_path %>"
+              alt=""
+              width="150px"
+            />
+            <% }else{ %>
+              <img
+              src="/img/poster.jpg"
               alt=""
               width="150px"
             />
@@ -114,7 +131,7 @@ videos=(JSON.parse(videos)) %>
 </section>
 <% if (similar.total_results!=0){ %>
 <section class="similar animated fadeInUp delay-3s">
-  <h2>Similar TV Shows</h2>
+  <h3>Similar TV Shows</h3>
   <div class="swiper-container">
     <div class="swiper-wrapper">
       <% similar.results.forEach( movie =>{ %> <% if ( movie.backdrop_path!=null
@@ -122,11 +139,19 @@ videos=(JSON.parse(videos)) %>
       <a href="<%= movie.id %> ">
         <div class="swiper-slide movie">
           <div class="movies">
+            <% if(movie.backdrop_path!=null){ %>
             <img
               src="https://image.tmdb.org/t/p/w500<%= movie.backdrop_path %>"
               alt=""
               width="400px"
             />
+            <% }else{ %>
+              <img
+              src="/img/Backdrop.jpg"
+              alt=""
+              width="400px"
+            />
+              <% } %>
             <p>
               <%= movie.name %>
             </p>
@@ -142,18 +167,26 @@ videos=(JSON.parse(videos)) %>
 </section>
 <% } %> <% if (recommended.total_results!=0){ %>
 <section class="recommend animated fadeInUp delay-4s">
-  <h2>Recommended TV Shows</h2>
+  <h3>Recommended TV Shows</h3>
   <div class="swiper-container">
     <div class="swiper-wrapper">
       <% recommended.results.forEach( movie =>{ %>
       <a href="<%= movie.id %> ">
         <div class="swiper-slide movie">
           <div class="movies">
+            <% if(movie.backdrop_path!=null){ %>
             <img
               src="https://image.tmdb.org/t/p/w500<%= movie.backdrop_path %>"
               alt=""
               width="400px"
             />
+            <% }else{ %>
+              <img
+              src="/img/Backdrop.jpg"
+              alt=""
+              width="400px"
+            />
+              <% } %>
             <p>
               <%= movie.name %>
             </p>
@@ -167,4 +200,4 @@ videos=(JSON.parse(videos)) %>
     </div>
   </div>
 </section>
-<% } %>
+<% } %> <%- include('../partials/footer') %>

@@ -1,31 +1,8 @@
-<%- include('partials/messages') %>
-
-<form action="/search" method="POST">
-  <select id="cars" name="type">
-    <option value="multi">All</option>
-    <option value="movie">movie</option>
-    <option value="tv">tv show</option>
-    <option value="person">cast</option>
-    <option value="keyword">Keyword</option>
-    <option value="collection">collections</option>
-    <option value="company">companies</option>
-  </select>
-  <input type="text" placeholder="Search" name="search" required />
-  <button class="btn btn-primary" type="submit">
-    Search
-  </button>
-</form>
-
-<% if(user === undefined){ %>
-<a href="user/signup" class="btn">Signup</a>
-<a href="user/login" class="btn">Login</a>
-<% }else{ %>
-<a href="user/profile" class="btn"> <%= user.name %></a>
-<a href="user/logout" class="btn">logout</a>
-<% } %> <% upcoming=(JSON.parse(upcoming)) %> <% popular=(JSON.parse(popular))
-%> <% now_playing=(JSON.parse(now_playing)) %> <%
-populartv=(JSON.parse(populartv)) %> <% onair=(JSON.parse(onair)) %> <%
-today=(JSON.parse(today)) %> <% person=(JSON.parse(person)) %>
+<%- include('partials/messages') %> <%- include('partials/navbar') %> <%
+upcoming=(JSON.parse(upcoming)) %> <% popular=(JSON.parse(popular)) %> <%
+now_playing=(JSON.parse(now_playing)) %> <% populartv=(JSON.parse(populartv)) %>
+<% onair=(JSON.parse(onair)) %> <% today=(JSON.parse(today)) %> <%
+person=(JSON.parse(person)) %>
 
 <main class="container">
   <section class="upcoming">
@@ -99,7 +76,7 @@ today=(JSON.parse(today)) %> <% person=(JSON.parse(person)) %>
               movie.vote_average %>
             </p>
             <p><%= movie.title %></p>
-            <a href="#dsd">
+            <a href="/watchlist/<%= movie.id  %>/<%= movie.title  %>/<%= movie.poster_path.split("/")[1]  %>/movie ">
               <button class="btn"><i class="fa fa-plus"></i> Watchlist</button>
             </a>
           </div>
@@ -128,7 +105,7 @@ today=(JSON.parse(today)) %> <% person=(JSON.parse(person)) %>
               movie.vote_average %>
             </p>
             <p><%= movie.title %></p>
-            <a href="#dsd">
+            <a href="/watchlist/<%= movie.id  %>/<%= movie.title  %>/<%= movie.poster_path.split("/")[1]  %>/movie ">
               <button class="btn"><i class="fa fa-plus"></i> Watchlist</button>
             </a>
           </div>
@@ -191,7 +168,6 @@ today=(JSON.parse(today)) %> <% person=(JSON.parse(person)) %>
   </section>
 </main>
 
-//
 <h1 class="popular">TV shows to Watch</h1>
 <section class="popular">
   <h3>On The Air</h3>
@@ -199,7 +175,7 @@ today=(JSON.parse(today)) %> <% person=(JSON.parse(person)) %>
     <div class="swiper-wrapper">
       <% onair.results.forEach((movie)=>{if(movie.poster_path!=null){ %>
       <div class="swiper-slide watch">
-        <a href="/detail/movie/<%= movie.id %>">
+        <a href="/detail/tv/<%= movie.id %>">
           <div>
             <img
               src="https://image.tmdb.org/t/p/w500<%= movie.poster_path %>"
@@ -212,7 +188,7 @@ today=(JSON.parse(today)) %> <% person=(JSON.parse(person)) %>
               movie.vote_average %>
             </p>
             <p><%= movie.name %></p>
-            <a href="#dsd">
+            <a href="/watchlist/<%= movie.id  %>/<%= movie.name   %>/<%= movie.poster_path.split("/")[1]  %>/tv ">
               <button class="btn"><i class="fa fa-plus"></i> Watchlist</button>
             </a>
           </div>
@@ -228,7 +204,7 @@ today=(JSON.parse(today)) %> <% person=(JSON.parse(person)) %>
     <div class="swiper-wrapper">
       <% today.results.forEach((movie)=>{ if(movie.poster_path!=null){%>
       <div class="swiper-slide watch">
-        <a href="/detail/movie/<%= movie.id %> ">
+        <a href="/detail/tv/<%= movie.id %> ">
           <div>
             <img
               src="https://image.tmdb.org/t/p/w500<%= movie.poster_path %>"
@@ -241,7 +217,7 @@ today=(JSON.parse(today)) %> <% person=(JSON.parse(person)) %>
               movie.vote_average %>
             </p>
             <p><%= movie.name %></p>
-            <a href="#dsd">
+            <a href="/watchlist/<%= movie.id  %>/<%= movie.name  %>/<%= movie.poster_path.split("/")[1]  %>/tv ">
               <button class="btn"><i class="fa fa-plus"></i> Watchlist</button>
             </a>
           </div>
@@ -257,7 +233,7 @@ today=(JSON.parse(today)) %> <% person=(JSON.parse(person)) %>
     <div class="swiper-wrapper">
       <% person.results.forEach((person)=>{if(person.profile_path!=null){ %>
       <div class="swiper-slide person">
-        <a href="#cas">
+        <a href="/detail/person/<%= person.id %>">
           <div>
             <img
               src="https://image.tmdb.org/t/p/w500<%= person.profile_path %>"
@@ -274,3 +250,4 @@ today=(JSON.parse(today)) %> <% person=(JSON.parse(person)) %>
     </div>
   </div>
 </section>
+<%- include('partials/footer') %>

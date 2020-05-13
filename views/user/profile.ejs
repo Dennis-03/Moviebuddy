@@ -1,29 +1,118 @@
-<%- include('../partials/messages') %>
+<%- include('../partials/messages') %> <%- include('../partials/navbar') %>
 
-<h2>
-  <%= user.name %>
-</h2>
-<h3>Watch list</h3>
-<% for(var i=0; i< user.watchList.length ;i++){%>
-<div class="card">
-  <img
-    src="https://image.tmdb.org/t/p/w500/<%=  user.watchListPoster[i] %>"
-    alt=""
-    width="150px"
-  />
-  <%= user.watchList[i] %> <%= user.watchListName[i] %>
-</div>
-<%} %>
+<div class="container">
+  <div class="popular dashboard">
+    <div>
+      <h1>
+        <%= user.name %>
+      </h1>
+      <a href="/user/logout">
+        <i class="fa fa-sign-out" style="color: #007bff;"></i> Logout
+      </a>
+    </div>
+    <!-- <div class="watch-no badges">
+      <h4>Badges</h4>
+      <p>You have not received any of badge yet</p>
+    </div> -->
+    <div class="watch-no">
+      <div>
+        <div id="counter">
+          <span class="count"> <%= user.watchList.length %> </span>
+        </div>
+        <h4>WatchList</h4>
+      </div>
+      <div>
+        <div id="counter">
+          <span class="count"> <%= user.watchedList.length %> </span>
+        </div>
+        <h4>Watched</h4>
+      </div>
+      <div>
+        <div id="counter">
+          <span class="count"> <%= user.favList.length %> </span>
+        </div>
+        <h4>Favourite</h4>
+      </div>
+    </div>
+  </div>
 
-<h3>Favourite</h3>
-<% for(var i=0; i< user.watchedList.length ;i++){%>
-<div class="card">
-  <img
-    src="https://image.tmdb.org/t/p/w500/<%=
-  user.watchedListPoster[i] %>"
-    alt=""
-    width="150px"
-  />
-  <%= user.watchedList[i] %> <%= user.watchedListName[i] %>
+  <% if(user.watchList.length!=0){ %>
+
+  <section class="popular">
+    <h3>Watch list</h3>
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <% for(var i=0; i< user.watchList.length ;i++){ %>
+        <div class="swiper-slide profile">
+          <a href="/detail/<%= user.watchListType[i]%>/<%= user.watchList[i]%>">
+            <div>
+              <img
+                src="https://image.tmdb.org/t/p/w500/<%= user.watchListPoster[i] %>"
+                alt=""
+                width="175px"
+                height="260px"
+              />
+              <p><%= user.watchListName[i] %></p>
+            </div>
+          </a>
+        </div>
+        <%} %>
+      </div>
+    </div>
+  </section>
+
+  <% } %> <% if(user.watchedList.length!=0){ %>
+
+  <section class="popular">
+    <h3>Watched</h3>
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <% for(var i=0; i< user.watchedList.length ;i++){ %>
+        <div class="swiper-slide profile">
+          <a
+            href="/detail/<%= user.watchedListType[i]%>/<%= user.watchedList[i]%>"
+          >
+            <div>
+              <img
+                src="https://image.tmdb.org/t/p/w500/<%= user.watchedListPoster[i] %>"
+                alt=""
+                width="175px"
+                height="260px"
+              />
+              <p><%= user.watchedListName[i] %></p>
+            </div>
+          </a>
+        </div>
+        <%} %>
+      </div>
+    </div>
+  </section>
+
+  <% } %> <% if(user.favList.length!=0){ %>
+
+  <section class="popular">
+    <h3>Favourite</h3>
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <% for(var i=0; i< user.favList.length ;i++){ %>
+        <div class="swiper-slide profile">
+          <a href="/detail/<%= user.favListType[i]%>/<%= user.favList[i]%>">
+            <div>
+              <img
+                src="https://image.tmdb.org/t/p/w500/<%= user.favListPoster[i] %>"
+                alt=""
+                width="175px"
+                height="260px"
+              />
+              <p><%= user.favListName[i] %></p>
+            </div>
+          </a>
+        </div>
+        <%} %>
+      </div>
+    </div>
+  </section>
+
+  <% } %>
 </div>
-<%} %>
+<%- include('../partials/footer') %>

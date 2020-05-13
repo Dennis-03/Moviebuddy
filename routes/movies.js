@@ -42,9 +42,10 @@ router.get("/", async (req, res) => {
   }
 });
 
-// router.get("/search", (req, res) => {
-//   res.render("movies/search");
-// });
+router.get("/display/:type/:get/", async (req, res) => {
+  console.log(req.params.type);
+  console.log(req.params.get);
+});
 
 router.post("/search/", async (req, res) => {
   //   console.log(req.params.search);
@@ -54,17 +55,13 @@ router.post("/search/", async (req, res) => {
     const data = await axios.get(
       `https://api.themoviedb.org/3/search/${req.body.type}?api_key=181ef0bca7e7dc51ef6013ce8ad75505&language=en-US&query=${req.body.search}`
     );
-    const keyword = await axios.get(
-      `https://api.themoviedb.org/3/search/keyword?api_key=181ef0bca7e7dc51ef6013ce8ad75505&query=${req.body.search}`
-    );
     console.log(req.body.type);
-    console.log(keyword.data.results);
-
     // data = ;
     res.render("search", {
       data: JSON.stringify(data.data),
+      type: req.body.type,
+      query: req.body.search,
       user: req.user,
-      keyword: JSON.stringify(keyword.data),
     });
   } catch (error) {
     console.error(error);
@@ -104,7 +101,7 @@ router.get("/detail/:type/:id", async (req, res) => {
       const similar = await axios.get(
         `https://api.themoviedb.org/3/${type}/${id}/similar?api_key=181ef0bca7e7dc51ef6013ce8ad75505`
       );
-      console.log(videos.data);
+      // console.log(videos.data);
 
       res.render(`detail/detail${type}`, {
         detail: JSON.stringify(detail.data),
@@ -114,25 +111,32 @@ router.get("/detail/:type/:id", async (req, res) => {
         videos: JSON.stringify(videos.data),
         recommended: JSON.stringify(recom.data),
         similar: JSON.stringify(similar.data),
+        user: req.user,
       });
     } else {
+      const credits = await axios.get(
+        `https://api.themoviedb.org/3/person/${id}/combined_credits?api_key=181ef0bca7e7dc51ef6013ce8ad75505`
+      );
+      console.log(credits.data);
       res.render(`detail/detail${type}`, {
+        credits: JSON.stringify(credits.data),
         detail: JSON.stringify(detail.data),
+        user: req.user,
       });
     }
   } catch (e) {
     console.log(e);
   }
 });
-
 router.get(
-  "/watchlist/:id/:name/:poster",
+  "/watchlist/:id/:name/:poster/:type",
   ensureAuthenticated,
-  async (req, res) => {
+  async (req, res, next) => {
     console.log("WatchList");
     const id = req.params.id;
     const name = req.params.name;
     const poster = req.params.poster;
+    const type = req.params.type;
 
     console.log(id);
     console.log(name);
@@ -141,6 +145,7 @@ router.get(
     let list = req.user.watchList;
     let nameList = req.user.watchListName;
     let posterList = req.user.watchListPoster;
+    let typeList = req.user.watchListType;
 
     console.log(list);
     let flag = 0;
@@ -154,25 +159,42 @@ router.get(
       list.push(id);
       nameList.push(name);
       posterList.push(poster);
+      typeList.push(type);
+
       await User.findOneAndUpdate(
         { _id: req.user._id },
         {
           watchList: list,
           watchListName: nameList,
           watchListPoster: posterList,
+          watchListType: typeList,
         },
         { new: true }
       );
     } else {
-      list = list.filter((list) => list !== id);
-      nameList = nameList.filter((list) => list !== name);
-      posterList = posterList.filter((list) => list !== poster);
+      console.log(nameList);
+
+      for (let i = 0; i < list.length; i++) {
+        if (list[i] == id) {
+          // await console.log(i);
+          list.splice(i, 1);
+          nameList.splice(i, 1);
+          posterList.splice(i, 1);
+          typeList.splice(i, 1);
+        }
+      }
+      // list = list.filter((list) => list !== id);
+      // nameList = nameList.filter((list) => list !== name);
+      // posterList = posterList.filter((list) => list !== poster);
+      // typeList = typeList.filter((list) => list !== type);
+
       await User.findOneAndUpdate(
         { _id: req.user._id },
         {
           watchList: list,
           watchListName: nameList,
           watchListPoster: posterList,
+          watchListType: typeList,
         },
         { new: true }
       );
@@ -180,21 +202,19 @@ router.get(
       req.flash("success_msg", "Removed Movie from Watch List");
     }
     // console.log(list);
-    res.redirect(`/detail/${id}`);
+    // next();
+    res.redirect(`/detail/${type}/${id}`);
   }
 );
-<<<<<<< HEAD
-
-=======
->>>>>>> parent of 1d059cc... error
 router.get(
-  "/watchedlist/:id/:name/:poster",
+  "/watchedlist/:id/:name/:poster/:type",
   ensureAuthenticated,
   async (req, res) => {
     console.log("watchedlist");
     const id = req.params.id;
     const name = req.params.name;
     const poster = req.params.poster;
+    const type = req.params.type;
 
     console.log(id);
     console.log(name);
@@ -203,6 +223,7 @@ router.get(
     let list = req.user.watchedList;
     let nameList = req.user.watchedListName;
     let posterList = req.user.watchedListPoster;
+    let typeList = req.user.watchedListType;
 
     console.log(list);
     let flag = 0;
@@ -215,6 +236,8 @@ router.get(
       list.push(id);
       nameList.push(name);
       posterList.push(poster);
+      typeList.push(type);
+
       req.flash("success_msg", "Added Movie to Watched List");
       await User.findOneAndUpdate(
         { _id: req.user._id },
@@ -222,19 +245,31 @@ router.get(
           watchedList: list,
           watchedListName: nameList,
           watchedListPoster: posterList,
+          watchedListType: typeList,
         },
         { new: true }
       );
     } else {
-      list = list.filter((list) => list !== id);
-      nameList = nameList.filter((list) => list !== name);
-      posterList = posterList.filter((list) => list !== poster);
+      for (let i = 0; i < list.length; i++) {
+        if (list[i] == id) {
+          // await console.log(i);
+          list.splice(i, 1);
+          nameList.splice(i, 1);
+          posterList.splice(i, 1);
+          typeList.splice(i, 1);
+        }
+      }
+
+      // list = list.filter((list) => list !== id);
+      // nameList = nameList.filter((list) => list !== name);
+      // posterList = posterList.filter((list) => list !== poster);
       await User.findOneAndUpdate(
         { _id: req.user._id },
         {
           watchedList: list,
           watchedListName: nameList,
           watchedListPoster: posterList,
+          watchedListType: typeList,
         },
         { new: true }
       );
@@ -242,18 +277,19 @@ router.get(
       req.flash("success_msg", "Removed Movie from Watched List");
     }
     // console.log(list);
-    res.redirect(`/detail/${id}`);
+    res.redirect(`/detail/${type}/${id}`);
   }
 );
 
 router.get(
-  "/favlist/:id/:name/:poster",
+  "/favlist/:id/:name/:poster/:type",
   ensureAuthenticated,
   async (req, res) => {
     console.log("fav");
     const id = req.params.id;
     const name = req.params.name;
     const poster = req.params.poster;
+    const type = req.params.type;
 
     console.log(id);
     console.log(name);
@@ -262,6 +298,7 @@ router.get(
     let list = req.user.favList;
     let nameList = req.user.favListName;
     let posterList = req.user.favListPoster;
+    let typeList = req.user.favListType;
 
     console.log(list);
     let flag = 0;
@@ -274,6 +311,8 @@ router.get(
       list.push(id);
       nameList.push(name);
       posterList.push(poster);
+      typeList.push(type);
+
       req.flash("success_msg", "Added Movie to Favourites");
       await User.findOneAndUpdate(
         { _id: req.user._id },
@@ -281,19 +320,32 @@ router.get(
           favList: list,
           favListName: nameList,
           favListPoster: posterList,
+          favListType: typeList,
         },
         { new: true }
       );
     } else {
-      list = list.filter((list) => list !== id);
-      nameList = nameList.filter((list) => list !== name);
-      posterList = posterList.filter((list) => list !== poster);
+      // list = list.filter((list) => list !== id);
+      // nameList = nameList.filter((list) => list !== name);
+      // posterList = posterList.filter((list) => list !== poster);
+
+      for (let i = 0; i < list.length; i++) {
+        if (list[i] == id) {
+          // await console.log(i);
+          list.splice(i, 1);
+          nameList.splice(i, 1);
+          posterList.splice(i, 1);
+          typeList.splice(i, 1);
+        }
+      }
+
       await User.findOneAndUpdate(
         { _id: req.user._id },
         {
           favList: list,
           favListName: nameList,
           favListPoster: posterList,
+          favListType: typeList,
         },
         { new: true }
       );
@@ -301,7 +353,7 @@ router.get(
       req.flash("success_msg", "Removed Movie from Favourites");
     }
     // console.log(list);
-    res.redirect(`/detail/${id}`);
+    res.redirect(`/detail/${type}/${id}`);
   }
 );
 

@@ -47,7 +47,7 @@ router.post("/signup", (req, res) => {
     User.findOne({ email: email }).then((user) => {
       if (user) {
         errors.push({ msg: "Email already exists" });
-        res.render("user/signup", {
+        res.render("/user/signup", {
           errors,
           name,
           email,
@@ -99,8 +99,6 @@ router.get("/logout", (req, res) => {
 // list movies
 
 router.get("/profile", async (req, res) => {
-  // console.log(data);
-  // res.send(data2);
   res.render("user/profile", { user: req.user });
 });
 

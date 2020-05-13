@@ -27,8 +27,10 @@ const userSchema = new mongoose.Schema({
     type: Array,
     default: [],
   },
-<<<<<<< HEAD
-=======
+  watchListType: {
+    type: Array,
+    default: [],
+  },
   watchedList: {
     type: Array,
     default: [],
@@ -41,7 +43,10 @@ const userSchema = new mongoose.Schema({
     type: Array,
     default: [],
   },
->>>>>>> parent of 1d059cc... error
+  watchedListType: {
+    type: Array,
+    default: [],
+  },
   favList: {
     type: Array,
     default: [],
@@ -51,6 +56,10 @@ const userSchema = new mongoose.Schema({
     default: [],
   },
   favListPoster: {
+    type: Array,
+    default: [],
+  },
+  favListType: {
     type: Array,
     default: [],
   },

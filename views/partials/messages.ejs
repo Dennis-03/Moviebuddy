@@ -1,4 +1,21 @@
 <% if(typeof errors != 'undefined'){ %> <% errors.forEach(function(error) { %>
-<%= error.msg %> <% }); %> <% } %> <% if(success_msg != ''){ %> <%= success_msg
-%> <% } %> <% if(error_msg != ''){ %> <%= error_msg %> <% } %> <% if(error !=
-''){ %> <%= error %> <% } %>
+<div class="alert alert-dismissible error">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <p><%= error.msg %></p>
+</div>
+<% }); %> <% } %> <% if(success_msg != ''){ %>
+<div class="alert alert-dismissible error">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <p><%= success_msg %></p>
+</div>
+<% } %> <% if(error_msg != ''){ %>
+<div class="alert alert-dismissible error">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <p><%= error_msg %></p>
+</div>
+<% } %> <% if(error !=''){ %>
+<div class="alert alert-dismissible error">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <p><%= error %></p>
+</div>
+<% } %>
