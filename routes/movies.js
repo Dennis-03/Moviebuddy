@@ -42,10 +42,9 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/display/:type/:get/", async (req, res) => {
-  console.log(req.params.type);
-  console.log(req.params.get);
-});
+// router.get("/search", (req, res) => {
+//   res.render("movies/search");
+// });
 
 router.post("/search/", async (req, res) => {
   //   console.log(req.params.search);
@@ -223,7 +222,7 @@ router.get(
     let list = req.user.watchedList;
     let nameList = req.user.watchedListName;
     let posterList = req.user.watchedListPoster;
-    let typeList = req.user.watchedListType;
+    let typeList = req.user.watchedListPoster;
 
     console.log(list);
     let flag = 0;
@@ -277,7 +276,7 @@ router.get(
       req.flash("success_msg", "Removed Movie from Watched List");
     }
     // console.log(list);
-    res.redirect(`/detail/${type}/${id}`);
+    res.redirect(`/detail/${id}`);
   }
 );
 
@@ -298,7 +297,7 @@ router.get(
     let list = req.user.favList;
     let nameList = req.user.favListName;
     let posterList = req.user.favListPoster;
-    let typeList = req.user.favListType;
+    let typeList = req.user.favListPoster;
 
     console.log(list);
     let flag = 0;
@@ -353,7 +352,7 @@ router.get(
       req.flash("success_msg", "Removed Movie from Favourites");
     }
     // console.log(list);
-    res.redirect(`/detail/${type}/${id}`);
+    res.redirect(`/detail/${id}`);
   }
 );
 

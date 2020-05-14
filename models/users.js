@@ -43,10 +43,6 @@ const userSchema = new mongoose.Schema({
     type: Array,
     default: [],
   },
-  watchedListType: {
-    type: Array,
-    default: [],
-  },
   favList: {
     type: Array,
     default: [],
@@ -59,9 +55,9 @@ const userSchema = new mongoose.Schema({
     type: Array,
     default: [],
   },
-  favListType: {
-    type: Array,
-    default: [],
+  confirmed: {
+    type: Boolean,
+    default: false,
   },
 });
 module.exports = mongoose.model("user", userSchema);

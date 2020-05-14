@@ -3,10 +3,25 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 const axios = require("axios");
+const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
 
 // Load User model
 const User = require("../models/users");
 const { forwardAuthenticated } = require("../config/auth");
+
+// Email Secret
+const EMAIL_SECRET = process.env.JWT_KEY;
+const DOMAIN_URL = process.env.DOMAIN_URL;
+
+// Transporter
+const transporter = nodemailer.createTransport({
+  service: "Gmail",
+  auth: {
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_PASS,
+  },
+});
 
 // Login Page
 router.get("/login", forwardAuthenticated, (req, res) =>
@@ -46,14 +61,9 @@ router.post("/signup", (req, res) => {
   } else {
     User.findOne({ email: email }).then((user) => {
       if (user) {
-        errors.push({ msg: "Email already exists" });
-        res.render("/user/signup", {
-          errors,
-          name,
-          email,
-          password,
-          password2,
-        });
+        // errors.push({ msg: "Email already exists" });
+        req.flash("success_msg", "Email Already Exists");
+        res.redirect("signup");
       } else {
         const newUser = new User({
           name,
@@ -67,10 +77,34 @@ router.post("/signup", (req, res) => {
           newUser
             .save()
             .then((user) => {
-              // req.flash(
-              //   "success_msg",
-              //   "You are now registered and can log in"
-              // );
+              const emailToken = jwt.sign(
+                {
+                  email: user.email,
+                  name: user.name,
+                },
+                EMAIL_SECRET,
+                {
+                  expiresIn: "1h",
+                }
+              );
+
+              const url = `${DOMAIN_URL}/user/confirmation/${emailToken}`;
+
+              transporter.sendMail({
+                to: email,
+                subject: "Confirm Email",
+                html: `<h1 style="color:blue;">Movie buddy</h1>
+                <p> ${name} </p>
+                <p>To activate your Movie Buddy Account, please verify your email address.<br />
+                Your account will not be created until your email address is confirmed.</p>
+                <a href="${url}"><strong>Verify Mail</strong></a>`,
+              });
+
+              // console.log(emailToken);
+              req.flash(
+                "success_msg",
+                "You are now registered Check Your mail for Confirmation"
+              );
               res.redirect("/user/login");
             })
             .catch((err) => console.log(err));
@@ -80,13 +114,48 @@ router.post("/signup", (req, res) => {
   }
 });
 
+// Confirmation
+
+router.get("/confirmation/:token", async (req, res) => {
+  try {
+    const decoded = jwt.verify(req.params.token, EMAIL_SECRET);
+    // console.log(decoded);
+    await User.findOneAndUpdate(
+      { email: decoded.email },
+      {
+        confirmed: true,
+      },
+      { new: true }
+    );
+  } catch (e) {
+    console.log(e);
+  }
+
+  return res.redirect(`${DOMAIN_URL}/user/login`);
+});
+
 // Login
 router.post("/login", (req, res, next) => {
-  passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "login",
-    failureFlash: true,
-  })(req, res, next);
+  const email = req.body.email;
+  User.findOne({ email: email }).then((user) => {
+    if (user == null) {
+      req.flash("success_msg", "Email ID does not exist");
+      res.redirect("login");
+    }
+    if (user.confirmed == false) {
+      req.flash(
+        "success_msg",
+        "You are email is not authenticated please check your Mail"
+      );
+      res.redirect("login");
+    } else {
+      passport.authenticate("local", {
+        successRedirect: "/",
+        failureRedirect: "login",
+        failureFlash: true,
+      })(req, res, next);
+    }
+  });
 });
 
 // Logout

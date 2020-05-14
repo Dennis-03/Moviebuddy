@@ -1375,8 +1375,8 @@ nav > div {
   top: 0;
   left: 50%;
   transform: translate(-50%, 0);
-  background-color: #007bff;
-  color: #000;
+  background-color: #000;
+  color: #007bff;
   z-index: 1000;
   /* border-radius: 0 !important; */
   border: 1px solid white;
@@ -1391,7 +1391,7 @@ nav > div {
 }
 
 .error p {
-  color: #000;
+  color: #007bff;
   padding: 0;
   margin: 0;
   font-size: 17px;
