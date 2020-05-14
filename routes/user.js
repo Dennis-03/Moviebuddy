@@ -2,9 +2,10 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
-const axios = require("axios");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
+const sgMail = require("@sendgrid/mail");
+sgMail.setApiKey(process.env.SENDGRID_API);
 
 // Load User model
 const User = require("../models/users");
@@ -15,13 +16,13 @@ const EMAIL_SECRET = process.env.JWT_KEY;
 const DOMAIN_URL = process.env.DOMAIN_URL;
 
 // Transporter
-const transporter = nodemailer.createTransport({
-  service: "Gmail",
-  auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_PASS,
-  },
-});
+// const transporter = nodemailer.createTransport({
+//   service: "Gmail",
+//   auth: {
+//     user: process.env.GMAIL_USER,
+//     pass: process.env.GMAIL_PASS,
+//   },
+// });
 
 // Login Page
 router.get("/login", forwardAuthenticated, (req, res) =>
@@ -90,15 +91,36 @@ router.post("/signup", (req, res) => {
 
               const url = `${DOMAIN_URL}/user/confirmation/${emailToken}`;
 
-              transporter.sendMail({
+              // transporter.sendMail({
+              //   to: email,
+              //   subject: "Confirm Email",
+              //   html: `<h1 style="color:blue;">Movie buddy</h1>
+              //   <p> ${name} </p>
+              //   <p>To activate your Movie Buddy Account, please verify your email address.<br />
+              //   Your account will not be created until your email address is confirmed.</p>
+              //   <a href="${url}"><strong>Verify Mail</strong></a>`,
+              // });
+              const msg = {
                 to: email,
+                from: process.env.GMAIL_USER,
                 subject: "Confirm Email",
                 html: `<h1 style="color:blue;">Movie buddy</h1>
                 <p> ${name} </p>
                 <p>To activate your Movie Buddy Account, please verify your email address.<br />
                 Your account will not be created until your email address is confirmed.</p>
                 <a href="${url}"><strong>Verify Mail</strong></a>`,
-              });
+              };
+
+              sgMail.send(msg).then(
+                () => {},
+                (error) => {
+                  console.error(error);
+
+                  if (error.response) {
+                    console.error(error.response.body);
+                  }
+                }
+              );
 
               // console.log(emailToken);
               req.flash(
