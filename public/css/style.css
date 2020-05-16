@@ -975,18 +975,16 @@ nav form div {
 }
 
 .login {
-  border-radius: 15px;
+  border-radius: 2px;
   height: 400px;
   width: 300px;
   padding: 50px;
   padding-top: 80px;
   margin: 0 auto;
   margin-top: 150px;
-  background-color: black;
+  background-color: rgb(14, 14, 31);
   position: relative;
-  border: 5px solid red;
-  border: 1px solid white;
-  box-shadow: 0px 0px 250px blue;
+  box-shadow: 0px 0px 250px rgb(25, 25, 50);
 }
 
 .login input {
@@ -1015,13 +1013,16 @@ input:focus {
   background-color: blue;
   padding: 10px 50px;
   margin-left: 30px;
+  margin-top: 15px;
+  margin-bottom: 0;
 }
 
 .logo-container {
-  background-color: #000;
+  background-color: rgb(14, 14, 31);
   margin: 15px;
   position: absolute;
-  border: 2px solid white;
+  /* border: 2px solid white; */
+  border-bottom: 0 !important;
   height: 80px;
   width: 80px;
   border-radius: 50%;
@@ -1029,6 +1030,7 @@ input:focus {
   right: 95px;
   overflow: hidden;
   padding: 8px;
+  box-shadow: 0px 0px 50px rgb(14, 14, 31);
 }
 
 .login p {
@@ -1037,20 +1039,28 @@ input:focus {
   text-align: center;
   padding-bottom: 15px;
 }
-
+.login span {
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 15px;
+  text-align: left;
+  position: absolute;
+  top: 210px;
+  right: 50px;
+  /* padding-bottom: 15px; */
+}
 .register {
-  border-radius: 15px;
+  border-radius: 2px;
   height: 600px;
   width: 400px;
   padding: 50px;
   padding-top: 80px;
   margin: 0 auto;
   margin-top: 50px;
-  background-color: black;
+  background-color: rgb(14, 14, 31);
   position: relative;
-  border: 5px solid red;
-  border: 1px solid white;
-  box-shadow: 0px 0px 250px blue;
+  /* border: 5px solid red; */
+  /* border: 1px solid white; */
+  box-shadow: 0px 0px 50px rgb(14, 14, 31);
 }
 
 .register input,
@@ -1080,29 +1090,21 @@ input:focus {
 }
 
 .register .logo-container {
-  background-color: #000;
-  position: absolute;
-  margin: 15px;
-  border: 2px solid white;
-  height: 80px;
-  width: 80px;
-  /* padding-top: 12px; */
-  /* padding-left: 24px; */
-  border-radius: 50%;
-  top: -50px;
   right: 135px;
 }
 
 .exist {
-  margin-top: 50px;
+  margin-top: 30px;
   font-size: 15px;
   text-align: center;
 }
 
 @media screen and (max-width: 500px) {
   .register {
-    height: 600px;
+    height: 550px;
+    margin-top: 0;
     width: 300px;
+    padding-bottom: 20px !important;
   }
   .register input {
     width: 100px;
@@ -1119,6 +1121,10 @@ input:focus {
   .register .logo-container {
     position: absolute;
     right: 95px;
+  }
+  .register input,
+  .register button {
+    margin-bottom: 0;
   }
 }
 
@@ -1374,6 +1380,7 @@ nav > div {
   position: fixed;
   top: 0;
   left: 50%;
+  min-width: 375px;
   transform: translate(-50%, 0);
   background-color: #000;
   color: #007bff;
