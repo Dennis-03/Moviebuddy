@@ -1,0 +1,32 @@
+<%- include('../partials/messages') %>
+<div class="animated fadeInUp delay-2s">
+  <form action="/user/reset" method="POST" class="reset">
+    <textarea type="text" name="token" class="hidden" placeholder="">
+<%= token %> </textarea
+    >
+    <a href="/">
+      <div class="logo-container">
+        <img src="/img/logotrans.png" alt="" width="60px" />
+      </div>
+    </a>
+    <div>
+      <i class="fa fa-key"></i>
+      <input
+        type="password"
+        placeholder="New Password"
+        name="password"
+        required
+      />
+    </div>
+    <div>
+      <i class="fa fa-key"></i>
+      <input
+        type="password"
+        placeholder="Confrim Password"
+        name="password2"
+        required
+      />
+    </div>
+    <button type="submit" class="btn">SUBMIT</button>
+  </form>
+</div>

@@ -42,7 +42,7 @@
   </div> -->
   <form class="form-inline my-2 my-lg-0" action="/search" method="POST">
     <div>
-      <select id="cars" name="type" class="btn-default hide">
+      <select name="type" class="btn-default hide">
         <option value="multi">All</option>
         <option value="movie">Movie</option>
         <option value="tv">TV</option>
@@ -62,15 +62,20 @@
     </button>
     <div class="splitter"></div>
     <% if(user === undefined){ %>
-    <a href="/user/signup" class="signin">
+    <a href="/user/login" class="signin">
       <i class="fa fa-user-plus" style="font-size: 20px;"></i>
       <span class="hide" style="margin-left: 15px;">Sign In</span>
     </a>
     <% }else{ %>
-    <a href="/user/profile" class="signin">
-      <i class="fa fa-user" style="font-size: 20px;"></i>
-      <span class="hide" style="margin-left: 15px;"><%= user.name %></span>
-    </a>
+    <div class="logger">
+      <a href="/user/profile" class="signin">
+        <i class="fa fa-user" style="font-size: 20px;"></i>
+        <span class="hide" style="margin-left: 15px;"><%= user.name %></span>
+      </a>
+      <span class="logout">
+        <a href="/user/logout"> <i class="fa fa-sign-out"> </i> Logout </a>
+      </span>
+    </div>
     <% } %>
   </form>
 </nav>

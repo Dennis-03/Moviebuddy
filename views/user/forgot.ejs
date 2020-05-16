@@ -1,23 +1,20 @@
 <%- include('../partials/messages') %>
 
 <div class="animated fadeInUp delay-2s">
-  <form action="login" method="POST" class="login">
+  <form action="/user/forgot" method="POST" class="forgot">
     <a href="/">
       <div class="logo-container">
         <img src="/img/logotrans.png" alt="" width="60px" />
       </div>
     </a>
     <!-- <p>Login to your account</p> -->
+    <p class="score" style="font-size: 12px !important; text-align: center;">
+      Reset link will be sent to your Mail ID
+    </p>
     <div>
       <i class="fa fa-envelope"></i>
       <input type="text" placeholder="Email" name="email" required />
     </div>
-    <div>
-      <i class="fa fa-key"></i>
-      <input type="password" placeholder="Password" name="password" required />
-    </div>
-    <span><a href="/user/forgot">Forgot Password?</a></span>
-    <button type="submit" class="btn">LOGIN</button>
-    <p class="exist"><a href="signup">Create Your Account</a></p>
+    <button type="submit" class="btn">SUBMIT</button>
   </form>
 </div>
