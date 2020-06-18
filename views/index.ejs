@@ -14,6 +14,7 @@ person=(JSON.parse(person)) %>
               src="https://image.tmdb.org/t/p/w500<%= popular.results[0].poster_path %>"
               alt=""
               class="extra"
+              width="300 px"
             />
             <img
               src="https://image.tmdb.org/t/p/w500<%= popular.results[0].backdrop_path %>"
@@ -33,6 +34,7 @@ person=(JSON.parse(person)) %>
               src="https://image.tmdb.org/t/p/w500<%= popular.results[i].poster_path %>"
               alt=""
               class="extra"
+              width="300 px"
             />
             <img
               src="https://image.tmdb.org/t/p/w500<%= popular.results[i].backdrop_path %>"
@@ -76,7 +78,7 @@ person=(JSON.parse(person)) %>
               movie.vote_average %>
             </p>
             <p><%= movie.title %></p>
-            <a href="/watchlist/<%= movie.id  %>/<%= movie.title  %>/<%= movie.poster_path.split("/")[1]  %>/movie ">
+            <a href="#dsd">
               <button class="btn"><i class="fa fa-plus"></i> Watchlist</button>
             </a>
           </div>
@@ -105,7 +107,7 @@ person=(JSON.parse(person)) %>
               movie.vote_average %>
             </p>
             <p><%= movie.title %></p>
-            <a href="/watchlist/<%= movie.id  %>/<%= movie.title  %>/<%= movie.poster_path.split("/")[1]  %>/movie ">
+            <a href="#dsd">
               <button class="btn"><i class="fa fa-plus"></i> Watchlist</button>
             </a>
           </div>
@@ -126,6 +128,7 @@ person=(JSON.parse(person)) %>
               src="https://image.tmdb.org/t/p/w500<%= populartv.results[0].poster_path %>"
               alt=""
               class="extra"
+              width="300 px"
             />
             <img
               src="https://image.tmdb.org/t/p/w500<%= populartv.results[0].backdrop_path %>"
@@ -145,6 +148,7 @@ person=(JSON.parse(person)) %>
               src="https://image.tmdb.org/t/p/w500<%= populartv.results[i].poster_path %>"
               alt=""
               class="extra"
+              width="300 px"
             />
             <img
               src="https://image.tmdb.org/t/p/w500<%= populartv.results[i].backdrop_path %>"
@@ -168,6 +172,7 @@ person=(JSON.parse(person)) %>
   </section>
 </main>
 
+//
 <h1 class="popular">TV shows to Watch</h1>
 <section class="popular">
   <h3>On The Air</h3>
@@ -188,7 +193,7 @@ person=(JSON.parse(person)) %>
               movie.vote_average %>
             </p>
             <p><%= movie.name %></p>
-            <a href="/watchlist/<%= movie.id  %>/<%= movie.name   %>/<%= movie.poster_path.split("/")[1]  %>/tv ">
+            <a href="#dsd">
               <button class="btn"><i class="fa fa-plus"></i> Watchlist</button>
             </a>
           </div>
@@ -217,7 +222,7 @@ person=(JSON.parse(person)) %>
               movie.vote_average %>
             </p>
             <p><%= movie.name %></p>
-            <a href="/watchlist/<%= movie.id  %>/<%= movie.name  %>/<%= movie.poster_path.split("/")[1]  %>/tv ">
+            <a href="#dsd">
               <button class="btn"><i class="fa fa-plus"></i> Watchlist</button>
             </a>
           </div>

@@ -155,7 +155,7 @@ a:hover {
 
 .adder {
   color: #fff;
-  background-image: linear-gradient(skyblue, blue);
+  background-image: linear-gradient(rgb(0, 87, 248), blue);
   border: #000;
 }
 
@@ -452,6 +452,9 @@ a:hover .desc {
 } */
 
 @media screen and (max-width: 1199px) {
+  .extra {
+    width: 250px !important;
+  }
   .carousel-item img {
     height: 378px;
     padding: 0 !important;
