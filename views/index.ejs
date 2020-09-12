@@ -74,7 +74,7 @@ person=(JSON.parse(person)) %>
               height="260px"
             />
             <p class="score">
-              <i class="fa fa-star" style="color: gold;"></i> <%=
+              <i class="fa fa-star" style="color: gold"></i> <%=
               movie.vote_average %>
             </p>
             <p><%= movie.title %></p>
@@ -86,6 +86,8 @@ person=(JSON.parse(person)) %>
       </div>
       <% }}) %>
     </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
   </div>
 </section>
 <section class="popular">
@@ -103,7 +105,7 @@ person=(JSON.parse(person)) %>
               height="260px"
             />
             <p class="score">
-              <i class="fa fa-star" style="color: gold;"></i> <%=
+              <i class="fa fa-star" style="color: gold"></i> <%=
               movie.vote_average %>
             </p>
             <p><%= movie.title %></p>
@@ -172,7 +174,6 @@ person=(JSON.parse(person)) %>
   </section>
 </main>
 
-//
 <h1 class="popular">TV shows to Watch</h1>
 <section class="popular">
   <h3>On The Air</h3>
@@ -189,7 +190,7 @@ person=(JSON.parse(person)) %>
               height="260px"
             />
             <p class="score">
-              <i class="fa fa-star" style="color: gold;"></i> <%=
+              <i class="fa fa-star" style="color: gold"></i> <%=
               movie.vote_average %>
             </p>
             <p><%= movie.name %></p>
@@ -218,7 +219,7 @@ person=(JSON.parse(person)) %>
               height="260px"
             />
             <p class="score">
-              <i class="fa fa-star" style="color: gold;"></i> <%=
+              <i class="fa fa-star" style="color: gold"></i> <%=
               movie.vote_average %>
             </p>
             <p><%= movie.name %></p>
@@ -246,9 +247,7 @@ person=(JSON.parse(person)) %>
               width="180px"
             />
           </div>
-          <p>
-            <%= person.name %>
-          </p>
+          <p><%= person.name %></p>
         </a>
       </div>
       <% }}) %>
