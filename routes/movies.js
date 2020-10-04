@@ -3,7 +3,9 @@ const router = express.Router();
 const axios = require("axios");
 const User = require("../models/users");
 const { ensureAuthenticated } = require("../config/auth");
-
+/**
+ * This is Home route
+ */
 router.get("/", async (req, res) => {
   try {
     const now_playing = await axios.get(
@@ -45,7 +47,9 @@ router.get("/", async (req, res) => {
 // router.get("/search", (req, res) => {
 //   res.render("movies/search");
 // });
-
+/**
+ * This is to search
+ */
 router.post("/search/", async (req, res) => {
   //   console.log(req.params.search);
   //   console.log(req.params.type);
@@ -66,7 +70,9 @@ router.post("/search/", async (req, res) => {
     console.error(error);
   }
 });
-
+/**
+ * This is will give details of the movie
+ */
 router.get("/detail/:type/:id", async (req, res) => {
   const id = req.params.id;
   const type = req.params.type;
@@ -205,6 +211,9 @@ router.get(
     res.redirect(`/detail/${type}/${id}`);
   }
 );
+/**
+ * This to get user's watch list
+ */
 router.get(
   "/watchedlist/:id/:name/:poster/:type",
   ensureAuthenticated,
